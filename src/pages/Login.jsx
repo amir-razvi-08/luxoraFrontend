@@ -15,7 +15,12 @@ const Login = () => {
         try {
             const url = `${serverURL}/users/${currentState === "Login" ? "login" : "register"}`;
             const payload = currentState === "Login" ? { usernameOremail: formData.usernameOremail, password: formData.password } : formData;
-            const response = await axios.post(url, payload);
+            const response = await axios.post(url, payload, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                withCredentials: true,
+            });
 
             if (response.data.success) {
                 localStorage.setItem("authToken", response.data.data.accessToken);
@@ -103,7 +108,9 @@ const Login = () => {
                             </p>
                         )}
                     </div>
-                    <button className="w-full m-auto rounded bg-black text-white px-8 py-2 mt-4 mb-12">{currentState === "Login" ? "Login" : "Sign Up"}</button>
+                    <button className="w-full m-auto rounded bg-black text-white px-8 py-2 mt-4 mb-12">
+                        {currentState === "Login" ? "Login" : "Sign Up"}
+                    </button>
                 </div>
             </form>
         </div>
