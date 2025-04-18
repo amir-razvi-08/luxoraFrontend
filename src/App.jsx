@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
 import About from "./pages/About";
@@ -25,45 +25,41 @@ const scrollToTop = () => {
 };
 
 function App() {
-    const {forgetPassword } = useContext(ShopContext);
-    const token = localStorage.getItem("authToken");
+
+    const location = useLocation();
+
+    const hideLayoutRoutes = ["/login", "/forgot-password"];
+    const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
 
     return (
-        <div className="relative ">
+        <div className="relative">
             <div className="fixed inset-0 -z-10 h-full w-full bg-black [background:radial-gradient(185%_125%_at_50%_10%,#f7f7f7_40%,#a0e8ff_100%)]"></div>
             <ToastContainer />
 
-            {token ? (
+            {!shouldHideLayout && <Navbar />}
+
+            <div className="sm:px-[3vw] md:px-[4vw] lg:px-[5vw]">
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/collection" element={<Collection />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/contact" element={<Contact />} />
+                    <Route path="/orders" element={<Orders />} />
+                    <Route path="/place-order" element={<PlaceOrder />} />
+                    <Route path="/product/:productId" element={<Product />} />
+                    <Route path="/cart" element={<Cart />} />
+                    <Route path="/verify" element={<Verify />} />
+                    <Route path="/forgot-password" element={<ForgetPassword />} />
+                    <Route path="/login" element={<Login />} />
+                </Routes>
+            </div>
+
+            {!shouldHideLayout && (
                 <>
-                    <Navbar />
-                    <div className="sm:px-[3vw] md:px-[4vw] lg:px-[5vw]">
-                        <Routes>
-                            <Route path="/" element={<Home />} />
-                            <Route path="/collection" element={<Collection />} />
-                            <Route path="/about" element={<About />} />
-                            <Route path="/contact" element={<Contact />} />
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/orders" element={<Orders />} />
-                            <Route path="/place-order" element={<PlaceOrder />} />
-                            <Route path="/product/:productId" element={<Product />} />
-                            <Route path="/cart" element={<Cart />} />
-                            <Route path="/verify" element={<Verify />} />
-                        </Routes>
-                    </div>
                     <div onClick={scrollToTop} className="my-0 mt-40 text-sm py-4 bg-[#3e546c] cursor-pointer flex items-center justify-center text-white">
                         Back to top
                     </div>
                     <Footer />
-                </>
-            ) : (
-                <>
-                    {forgetPassword ? (
-                        <ForgetPassword />
-                    ) : (
-                        <Routes>
-                            <Route path="/" element={<Login />} />
-                        </Routes>
-                    )}
                 </>
             )}
         </div>

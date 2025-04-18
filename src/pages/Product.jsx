@@ -4,13 +4,25 @@ import { ShopContext } from "../context/ShopContext";
 import RelatedProducts from "../components/RelatedProduct";
 import { HiShoppingBag } from "react-icons/hi";
 import { FaStar } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+
 
 const Product = () => {
+    const navigate = useNavigate();
     const { productId } = useParams();
     const { products, currency, addToCart } = useContext(ShopContext);
     const [productsData, setProductsData] = useState(false);
     const [image, setImage] = useState("");
     const [size, setSize] = useState("M");
+
+    const handleAddToCart = ({id,size}) => {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            navigate("/login");
+            return;
+        }
+        addToCart(id, size);
+    };
 
     const fetchProductsData = async () => {
         products.map((product) => {
@@ -97,7 +109,7 @@ const Product = () => {
                     </div>
 
                     <div
-                        onClick={() => addToCart(productsData._id, size)}
+                        onClick={() => handleAddToCart({ id: productsData._id, size })}
                         className="flex gap-2 items-center bg-black text-white py-3 px-8 text-xl active:bg-gray-700 w-56 cursor-pointer"
                     >
                         <HiShoppingBag />

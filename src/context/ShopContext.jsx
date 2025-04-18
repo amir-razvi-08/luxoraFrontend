@@ -49,9 +49,10 @@ const ShopContextProvider = ({ children }) => {
         }
     };
 
+    getallProducts();
+
     useEffect(() => {
         if (token) {
-            getallProducts();
             addCartItem();
         }
     }, [token]);
