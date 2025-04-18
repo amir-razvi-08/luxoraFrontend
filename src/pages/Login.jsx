@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 const Login = () => {
     const [currentState, setCurrentState] = useState("Login");
-    const { serverURL, setUserPanel, navigate, setForgetPassword } = useContext(ShopContext);
+    const { serverURL, navigate, setForgetPassword } = useContext(ShopContext);
     const [formData, setFormData] = useState({ fullName: "", username: "", usernameOremail: "", email: "", password: "" });
 
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -103,15 +103,9 @@ const Login = () => {
                             </p>
                         )}
                     </div>
-                    <button className="w-full m-auto rounded bg-black text-white px-8 py-2 mt-4">{currentState === "Login" ? "Login" : "Sign Up"}</button>
+                    <button className="w-full m-auto rounded bg-black text-white px-8 py-2 mt-4 mb-12">{currentState === "Login" ? "Login" : "Sign Up"}</button>
                 </div>
             </form>
-            <div
-                onClick={() => setUserPanel(false)}
-                className=" text-white cursor-pointer p-2 text-center my-4 bg-blue-600 hover:bg-blue-500 duration-300 rounded m-auto w-1/2"
-            >
-                Admin Login
-            </div>
         </div>
     );
 };

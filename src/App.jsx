@@ -13,13 +13,6 @@ import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
 import { useContext } from "react";
 import { ShopContext } from "./context/ShopContext";
-import AdminLogin from "./pages/AdminLogin";
-import AdminNavbar from "./adminComponents/AdminNavbar";
-import Sidebar from "./adminComponents/Sidebar";
-import AddProduct from "./adminPages/AddProduct";
-import ListProducts from "./adminPages/ListProducts";
-import OrdersProduct from "./adminPages/OrdersProduct";
-import AdminHome from "./adminPages/AdminHome";
 import Verify from "./pages/Verify";
 import ForgetPassword from "./pages/ForgetPassword";
 
@@ -32,8 +25,7 @@ const scrollToTop = () => {
 };
 
 function App() {
-    const { userPanel, forgetPassword } = useContext(ShopContext);
-    const isAdmin = localStorage.getItem("admin");
+    const {forgetPassword } = useContext(ShopContext);
     const token = localStorage.getItem("authToken");
 
     return (
@@ -43,65 +35,34 @@ function App() {
 
             {token ? (
                 <>
-                    {isAdmin ? (
-                        <>
-                            <div className="min-h-screen w-full">
-                                <AdminNavbar />
-                                <hr />
-                                <div className="flex w-full  gap-10 ">
-                                    <Sidebar />
-                                    <div className="py-5 w-full">
-                                        <Routes>
-                                            <Route path="/" element={<AdminHome />} />
-                                            <Route path="/add-product" element={<AddProduct token={token} />} />
-                                            <Route path="/list-products" element={<ListProducts />} />
-                                            <Route path="/orders" element={<OrdersProduct token={token} />} />
-                                        </Routes>
-                                    </div>
-                                </div>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <Navbar />
-                            <div className="sm:px-[3vw] md:px-[4vw] lg:px-[5vw]">
-                                <Routes>
-                                    <Route path="/" element={<Home />} />
-                                    <Route path="/collection" element={<Collection />} />
-                                    <Route path="/about" element={<About />} />
-                                    <Route path="/contact" element={<Contact />} />
-                                    <Route path="/login" element={<Login />} />
-                                    <Route path="/orders" element={<Orders />} />
-                                    <Route path="/place-order" element={<PlaceOrder />} />
-                                    <Route path="/product/:productId" element={<Product />} />
-                                    <Route path="/cart" element={<Cart />} />
-                                    <Route path="/verify" element={<Verify />} />
-                                </Routes>
-                            </div>
-                            <div
-                                onClick={scrollToTop}
-                                className="my-0 mt-40 text-sm py-4 bg-[#3e546c] cursor-pointer flex items-center justify-center text-white"
-                            >
-                                Back to top
-                            </div>
-                            <Footer />
-                        </>
-                    )}
+                    <Navbar />
+                    <div className="sm:px-[3vw] md:px-[4vw] lg:px-[5vw]">
+                        <Routes>
+                            <Route path="/" element={<Home />} />
+                            <Route path="/collection" element={<Collection />} />
+                            <Route path="/about" element={<About />} />
+                            <Route path="/contact" element={<Contact />} />
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/orders" element={<Orders />} />
+                            <Route path="/place-order" element={<PlaceOrder />} />
+                            <Route path="/product/:productId" element={<Product />} />
+                            <Route path="/cart" element={<Cart />} />
+                            <Route path="/verify" element={<Verify />} />
+                        </Routes>
+                    </div>
+                    <div onClick={scrollToTop} className="my-0 mt-40 text-sm py-4 bg-[#3e546c] cursor-pointer flex items-center justify-center text-white">
+                        Back to top
+                    </div>
+                    <Footer />
                 </>
             ) : (
                 <>
-                    {userPanel ? (
-                        <>
-                            {forgetPassword ? (
-                                <ForgetPassword />
-                            ) : (
-                                <Routes>
-                                    <Route path="/" element={<Login />} />
-                                </Routes>
-                            )}
-                        </>
+                    {forgetPassword ? (
+                        <ForgetPassword />
                     ) : (
-                        <AdminLogin />
+                        <Routes>
+                            <Route path="/" element={<Login />} />
+                        </Routes>
                     )}
                 </>
             )}

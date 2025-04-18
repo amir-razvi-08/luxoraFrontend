@@ -14,7 +14,6 @@ const ShopContextProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState({});
     const navigate = useNavigate();
     const [product, setProduct] = useState("");
-    const [userPanel, setUserPanel] = useState(true);
     const [forgetPassword, setForgetPassword] = useState(false);
     const [products, setProducts] = useState([]);
     const [amount, setAmount] = useState(0);
@@ -50,10 +49,8 @@ const ShopContextProvider = ({ children }) => {
         }
     };
 
-    const admin = localStorage.getItem("admin");
-
     useEffect(() => {
-        if (token && !admin) {
+        if (token) {
             getallProducts();
             addCartItem();
         }
@@ -177,8 +174,6 @@ const ShopContextProvider = ({ children }) => {
         getCartAmount,
         navigate,
         serverURL,
-        userPanel,
-        setUserPanel,
         amount,
         setAmount,
         discount,
