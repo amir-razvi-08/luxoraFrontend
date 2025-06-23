@@ -11,10 +11,12 @@ import Cart from "./pages/Cart";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
-import { useContext } from "react";
-import { ShopContext } from "./context/ShopContext";
 import Verify from "./pages/Verify";
 import ForgetPassword from "./pages/ForgetPassword";
+import bot from "./assets/chatbot.png";
+import { useState } from "react";
+import { FaChevronDown } from "react-icons/fa";
+import Chat from "./pages/Chat";
 
 const scrollToTop = () => {
     window.scrollTo({
@@ -25,8 +27,8 @@ const scrollToTop = () => {
 };
 
 function App() {
-
     const location = useLocation();
+    const [isVisible, setIsVisible] = useState(false);
 
     const hideLayoutRoutes = ["/login", "/forgot-password"];
     const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
@@ -53,6 +55,29 @@ function App() {
                     <Route path="/login" element={<Login />} />
                 </Routes>
             </div>
+
+            {!shouldHideLayout && (
+                <>
+                    {!isVisible ? (
+                        <div className="fixed w-[20rem] h-[40rem] bottom-6 right-6 z-90">
+                            <div className="">
+
+                                <Chat/>
+                            </div>
+                            <button
+                                onClick={() => setIsVisible(true)}
+                                className="fixed bottom-4 right-6 cursor-pointer w-12 h-12 rounded bg-cyan-400 text-gray-600 flex justify-center items-center text-4xl"
+                            >
+                                <FaChevronDown />
+                            </button>
+                        </div>
+                    ) : (
+                        <button onClick={() => setIsVisible(false)} className="fixed cursor-pointer bottom-4 right-4 rounded-full">
+                            <img className="w-16" src={bot} alt="chatbot" />
+                        </button>
+                    )}
+                </>
+            )}
 
             {!shouldHideLayout && (
                 <>
