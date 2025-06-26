@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { motion } from "framer-motion";
 import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";

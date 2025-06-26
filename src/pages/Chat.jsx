@@ -24,11 +24,11 @@ export default function Chat() {
     setInput("");
     setIsTyping(true);
 
-    // Add user message
+    
     setMessages((prev) => [...prev, { role: "human", content: [question] }]);
 
     try {
-      const res = await axios.post("http://localhost:4000/api/v1/products/product-query", {
+      const res = await axios.post("https://luxorabackend.onrender.com/api/v1/products/product-query", {
         question,
       });
 

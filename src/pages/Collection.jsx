@@ -60,13 +60,12 @@ const Collection = () => {
 
         switch (sortType) {
             case "low-high":
-                setFilterProducts(filteredProdCopy.sort((a, b) => a.discountPrice - b.discountPrice));
+                setFilterProducts(filteredProdCopy.sort((a, b) => a.price - b.price));
                 break;
             case "high-low":
-                setFilterProducts(filteredProdCopy.sort((a, b) => b.discountPrice - a.discountPrice));
+                setFilterProducts(filteredProdCopy.sort((a, b) => b.price - a.price));
                 break;
 
-                case "relevent":
             default:
                 setFilterProducts(() => {
                     applyFilter();
@@ -76,16 +75,14 @@ const Collection = () => {
         }
 
         setFilterProducts(filteredProdCopy);
-        console.log(filterProducts,"sorted")
     };
 
     useEffect(() => {
         applyFilter();
-    }, [category, subCategory, search, products,sortType]);
+    }, [category, subCategory, search, products]);
 
     useEffect(() => {
         sortProducts();
-        console.log("hello")
     }, [sortType]);
 
     return (

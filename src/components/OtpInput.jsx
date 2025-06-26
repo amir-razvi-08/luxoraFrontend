@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { motion } from "framer-motion";
 
 const OtpInput = ({ onComplete }) => {
     const length = 6;
