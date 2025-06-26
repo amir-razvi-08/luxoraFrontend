@@ -20,6 +20,7 @@ const ShopContextProvider = ({ children }) => {
     const [orderItems, setOrderItems] = useState([]);
     const serverURL = "https://luxorabackend.onrender.com/api/v1";
     const token = localStorage.getItem("authToken");
+    const [isVisible, setIsVisible] = useState(false);
 
     const addCartItem = async () => {
         try {
@@ -48,8 +49,9 @@ const ShopContextProvider = ({ children }) => {
             toast.error(error.response?.data?.message || "Failed to fetch products.");
         }
     };
-
-    getallProducts();
+    useEffect(() => {
+        getallProducts();
+    }, []);
 
     useEffect(() => {
         if (token) {
@@ -183,6 +185,8 @@ const ShopContextProvider = ({ children }) => {
         setItems,
         forgetPassword,
         setForgetPassword,
+        isVisible,
+        setIsVisible,
     };
 
     return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

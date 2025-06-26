@@ -1,0 +1,35 @@
+[33mcommit f802c733c78633848298be9f803bfd9d24444855[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mchatbot-feature[m[33m, [m[1;31morigin/chatbot-feature[m[33m)[m
+Author: Amir Razvi <amirrazvi8@gmail.com>
+Date:   Mon Jun 23 16:53:12 2025 +0530
+
+    chat-bot basic setup and ui design
+
+[33mcommit 33c33a775e65afef3a148747765abf65a8d9b1b7[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: Amir Razvi <amirrazvi8@gmail.com>
+Date:   Fri Apr 18 22:43:09 2025 +0530
+
+    fix: update token retrieval to use 'authToken' for cart functionality
+
+[33mcommit e96a32b7c6b49c0664ad453fbc00341c27ca7177[m
+Author: Amir Razvi <amirrazvi8@gmail.com>
+Date:   Fri Apr 18 22:37:26 2025 +0530
+
+    refactor: improve navigation and authentication handling in App and Navbar components
+
+[33mcommit 1cd99d155c5621e2f69797e865b291b50ff75b8b[m
+Author: Amir Razvi <amirrazvi8@gmail.com>
+Date:   Fri Apr 18 19:34:13 2025 +0530
+
+    enhance login functionality with JSON headers and credentials support
+
+[33mcommit 02a2bea390a9f705c9c7c34c8648a30db9bac628[m
+Author: Amir Razvi <amirrazvi8@gmail.com>
+Date:   Fri Apr 18 19:04:40 2025 +0530
+
+    streamline user login process.
+
+[33mcommit 1d24dd57e4d715c8e07f52a490c346155a6a962d[m
+Author: Amir Razvi <amirrazvi8@gmail.com>
+Date:   Thu Feb 27 22:39:35 2025 +0530
+
+    luxora-frontend complete

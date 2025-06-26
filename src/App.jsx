@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
@@ -11,10 +12,12 @@ import Cart from "./pages/Cart";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
-import { useContext } from "react";
-import { ShopContext } from "./context/ShopContext";
 import Verify from "./pages/Verify";
 import ForgetPassword from "./pages/ForgetPassword";
+import bot from "./assets/chatbot.png";
+import { FaChevronDown } from "react-icons/fa";
+import { ShopContext } from "./context/ShopContext";
+import Chat from "./pages/Chat";
 
 const scrollToTop = () => {
     window.scrollTo({
@@ -25,8 +28,8 @@ const scrollToTop = () => {
 };
 
 function App() {
-
     const location = useLocation();
+    const { isVisible, setIsVisible } = useContext(ShopContext);
 
     const hideLayoutRoutes = ["/login", "/forgot-password"];
     const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
@@ -53,6 +56,27 @@ function App() {
                     <Route path="/login" element={<Login />} />
                 </Routes>
             </div>
+
+            {!shouldHideLayout && (
+                <div className={`fixed bottom-20 right-6 z-50`}>
+                    <div
+                        className={`w-[20rem] overflow-hidden rounded-lg shadow-lg bg-white transition-all duration-500 ease-in-out transform${
+                            isVisible ? "translate-y-0 opacity-100 h-[38rem]" : "translate-y-[100%] opacity-0 pointer-events-none h-0"
+                        }`}
+                    >
+                        <Chat />
+                    </div>
+
+                    <button
+                        onClick={() => setIsVisible(!isVisible)}
+                        className={`absolute -bottom-18 right-2 w-16 h-16 rounded-lg text-3xl text-gray-600 flex justify-center items-center ${
+                            !isVisible ? "bg-none" : "bg-cyan-400 "
+                        }`}
+                    >
+                        {isVisible ? <FaChevronDown /> : <img className="w-16" src={bot} alt="chatbot" />}
+                    </button>
+                </div>
+            )}
 
             {!shouldHideLayout && (
                 <>
