@@ -1,3 +1,4 @@
+import { useContext } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
@@ -14,8 +15,8 @@ import { ToastContainer } from "react-toastify";
 import Verify from "./pages/Verify";
 import ForgetPassword from "./pages/ForgetPassword";
 import bot from "./assets/chatbot.png";
-import { useState } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { ShopContext } from "./context/ShopContext";
 import Chat from "./pages/Chat";
 
 const scrollToTop = () => {
@@ -28,7 +29,7 @@ const scrollToTop = () => {
 
 function App() {
     const location = useLocation();
-    const [isVisible, setIsVisible] = useState(false);
+    const { isVisible, setIsVisible } = useContext(ShopContext);
 
     const hideLayoutRoutes = ["/login", "/forgot-password"];
     const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
@@ -57,26 +58,24 @@ function App() {
             </div>
 
             {!shouldHideLayout && (
-                <>
-                    {!isVisible ? (
-                        <div className="fixed w-[20rem] h-[40rem] bottom-6 right-6 z-90">
-                            <div className="">
+                <div className={`fixed bottom-20 right-6 z-50`}>
+                    <div
+                        className={`w-[20rem] overflow-hidden rounded-lg shadow-lg bg-white transition-all duration-500 ease-in-out transform${
+                            isVisible ? "translate-y-0 opacity-100 h-[38rem]" : "translate-y-[100%] opacity-0 pointer-events-none h-0"
+                        }`}
+                    >
+                        <Chat />
+                    </div>
 
-                                <Chat/>
-                            </div>
-                            <button
-                                onClick={() => setIsVisible(true)}
-                                className="fixed bottom-4 right-6 cursor-pointer w-12 h-12 rounded bg-cyan-400 text-gray-600 flex justify-center items-center text-4xl"
-                            >
-                                <FaChevronDown />
-                            </button>
-                        </div>
-                    ) : (
-                        <button onClick={() => setIsVisible(false)} className="fixed cursor-pointer bottom-4 right-4 rounded-full">
-                            <img className="w-16" src={bot} alt="chatbot" />
-                        </button>
-                    )}
-                </>
+                    <button
+                        onClick={() => setIsVisible(!isVisible)}
+                        className={`absolute -bottom-18 right-2 w-16 h-16 rounded-lg text-3xl text-gray-600 flex justify-center items-center ${
+                            !isVisible ? "bg-none" : "bg-cyan-400 "
+                        }`}
+                    >
+                        {isVisible ? <FaChevronDown /> : <img className="w-16" src={bot} alt="chatbot" />}
+                    </button>
+                </div>
             )}
 
             {!shouldHideLayout && (

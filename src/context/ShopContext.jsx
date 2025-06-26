@@ -18,8 +18,9 @@ const ShopContextProvider = ({ children }) => {
     const [products, setProducts] = useState([]);
     const [amount, setAmount] = useState(0);
     const [orderItems, setOrderItems] = useState([]);
-    const serverURL = "https://luxorabackend.onrender.com/api/v1";
+    const serverURL = "http://localhost:4000/api/v1";
     const token = localStorage.getItem("authToken");
+    const [isVisible, setIsVisible] = useState(false);
 
     const addCartItem = async () => {
         try {
@@ -183,6 +184,8 @@ const ShopContextProvider = ({ children }) => {
         setItems,
         forgetPassword,
         setForgetPassword,
+        isVisible,
+        setIsVisible,
     };
 
     return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;

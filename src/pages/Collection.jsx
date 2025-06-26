@@ -60,12 +60,13 @@ const Collection = () => {
 
         switch (sortType) {
             case "low-high":
-                setFilterProducts(filteredProdCopy.sort((a, b) => a.price - b.price));
+                setFilterProducts(filteredProdCopy.sort((a, b) => a.discountPrice - b.discountPrice));
                 break;
             case "high-low":
-                setFilterProducts(filteredProdCopy.sort((a, b) => b.price - a.price));
+                setFilterProducts(filteredProdCopy.sort((a, b) => b.discountPrice - a.discountPrice));
                 break;
 
+                case "relevent":
             default:
                 setFilterProducts(() => {
                     applyFilter();
@@ -75,14 +76,16 @@ const Collection = () => {
         }
 
         setFilterProducts(filteredProdCopy);
+        console.log(filterProducts,"sorted")
     };
 
     useEffect(() => {
         applyFilter();
-    }, [category, subCategory, search, products]);
+    }, [category, subCategory, search, products,sortType]);
 
     useEffect(() => {
         sortProducts();
+        console.log("hello")
     }, [sortType]);
 
     return (
@@ -135,7 +138,7 @@ const Collection = () => {
                     <select
                         onChange={(e) => setSortType(e.target.value)}
                         value={sortType}
-                        className="border border-gray-300 text-sm px-2 bg-[#000] rounded text-white"
+                        className="border border-gray-300 text-sm px-2 bg-[#000] rounded text-white cursor-pointer"
                     >
                         <option value="relevent">Sort by: Relevent</option>
                         <option value="low-high">Sort by: Low to High</option>
