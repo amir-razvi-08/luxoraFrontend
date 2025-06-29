@@ -3,6 +3,7 @@ import { ShopContext } from "../context/ShopContext";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Title from "../components/Title";
+import {motion} from 'framer-motion'
 
 const Contact = () => {
     const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
