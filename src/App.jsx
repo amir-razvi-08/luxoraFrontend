@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext,useRef,useEffect } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Collection from "./pages/Collection";
@@ -28,11 +28,31 @@ const scrollToTop = () => {
 };
 
 function App() {
+    
     const location = useLocation();
     const { isVisible, setIsVisible } = useContext(ShopContext);
-
     const hideLayoutRoutes = ["/login", "/forgot-password"];
     const shouldHideLayout = hideLayoutRoutes.includes(location.pathname);
+    const chatRef = useRef(null);
+
+
+
+    useEffect(() => {
+  function handleClickOutside(event) {
+    if (chatRef.current && !chatRef.current.contains(event.target)) {
+      if (isVisible) {
+        setIsVisible(false);
+      }
+    }
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [isVisible, setIsVisible]);
+
 
     return (
         <div className="relative">
@@ -60,6 +80,7 @@ function App() {
             {!shouldHideLayout && (
                 <div className={`fixed bottom-20 right-6 z-50`}>
                     <div
+                    ref={chatRef}
                         className={`w-[20rem] overflow-hidden rounded-lg shadow-lg bg-white transition-all duration-500 ease-in-out transform${
                             isVisible ? "translate-y-0 opacity-100 h-[38rem]" : "translate-y-[100%] opacity-0 pointer-events-none h-0"
                         }`}
@@ -69,7 +90,7 @@ function App() {
 
                     <button
                         onClick={() => setIsVisible(!isVisible)}
-                        className={`absolute -bottom-18 right-2 w-16 h-16 rounded-lg text-3xl text-gray-600 flex justify-center items-center ${
+                        className={`absolute -bottom-18 right-2 w-16 h-16 rounded-lg text-3xl text-gray-600 flex justify-center items-center cursor-pointer ${
                             !isVisible ? "bg-none" : "bg-cyan-400 "
                         }`}
                     >
